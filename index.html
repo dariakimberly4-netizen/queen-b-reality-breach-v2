@@ -20,7 +20,7 @@ body.crack:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2
 @media(max-height:700px){.frame{height:48vh;min-height:280px}.crown{font-size:36px}h1{font-size:38px}}
 </style></head>
 <body>
-<main><div class="crown">♛</div><h1>QUEEN B</h1><div class="sub">REALITY BREACH · CLEAN BUILD</div>
+<main><div class="crown">♛</div><h1>QUEEN B</h1><div class="sub">REALITY BREACH · THE PHOTO COMES ALIVE</div>
 <div class="frame"><img id="photo" alt="Queen B memory"></div><div id="status">MEMORY 001 / 100</div></main>
 <div class="controls"><button id="next" type="button">NEXT MEMORY</button><button id="test" type="button">TEST MEMORY 100</button></div>
 <div id="reality"><div id="sys"></div></div>
@@ -31,13 +31,30 @@ const photo=document.getElementById("photo"),status=document.getElementById("sta
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 function show(){const m=n+1;photo.src="https://drive.google.com/thumbnail?id="+ids[n]+"&sz=w1600";status.textContent="MEMORY "+String(m).padStart(3,"0")+" / 100";document.body.classList.toggle("crack",m>=10)}
 async function finale(){
+ document.querySelector(".controls").style.display="none";
+ status.textContent="MEMORY 100 / 100";
+ photo.style.transition="filter 1s,transform 1.4s,opacity 1s";
+ photo.style.filter="brightness(.35) saturate(.5)";
+ photo.style.transform="scale(1.035)";
+ await wait(900);
  reality.style.display="grid";
- for(const [t,d] of [["SEARCHING FOR MEMORY 100…",1300],["ERROR: MEMORY NOT FOUND",1300],["SUBJECT EXISTS OUTSIDE WEBSITE",1700],["OPENING REALITY…",1500]]){sys.textContent=t;sys.className="glitch";await wait(d)}
- const v=document.createElement("video");v.controls=true;v.playsInline=true;v.src="VID-20260915-WA0000.mp4";v.style.cssText="position:fixed;inset:0;width:100%;height:100%;object-fit:contain;background:#000;z-index:200";document.body.appendChild(v);reality.style.display="none";
- try{await v.play()}catch(e){}
+ for(const [t,d] of [["SEARCHING FOR MEMORY 100…",1200],["MEMORY 100 NOT FOUND",1200],["DETECTING SIGNAL…",1400],["LIVE MEMORY FOUND",1200]]){sys.textContent=t;sys.className="glitch";await wait(d)}
+ reality.style.display="none";
+ const v=document.createElement("video");v.playsInline=true;v.autoplay=true;v.controls=false;v.src="VID-20260915-WA0000.mp4";
+ const rect=photo.getBoundingClientRect();
+ v.style.cssText="position:fixed;left:"+rect.left+"px;top:"+rect.top+"px;width:"+rect.width+"px;height:"+rect.height+"px;object-fit:contain;background:#000;z-index:200;border-radius:20px;transition:all 1.4s cubic-bezier(.2,.8,.2,1)";
+ document.body.appendChild(v);
+ try{await v.play()}catch(e){v.controls=true}
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{v.style.left="0";v.style.top="0";v.style.width="100vw";v.style.height="100vh";v.style.borderRadius="0"}));
  v.addEventListener("ended",()=>{v.remove();ending()},{once:true});
 }
-async function ending(){reality.style.display="grid";for(const [t,d] of [["THE END",1400],["THE END̶",1200],["100 / 100",1100],["100 / ∞",1600]]){sys.textContent=t;sys.className="glitch";await wait(d)}sys.className="";sys.innerHTML="You thought this was a birthday website.<br><br><b>It was only the beginning.</b><br><br><span style='font-size:2em;color:#efd16f'>♛</span>"}
+async function ending(){
+ reality.style.display="grid";
+ const seq=[["THE END",1400],["THE END",900],["100 / 100",1100],["100 / ∞",1600]];
+ for(let i=0;i<seq.length;i++){sys.textContent=seq[i][0];sys.className=i===1||i===3?"glitch":"";if(i===1)sys.style.textDecoration="line-through";else sys.style.textDecoration="none";await wait(seq[i][1])}
+ sys.className="";sys.style.textDecoration="none";
+ sys.innerHTML="<div style='font-family:Georgia,serif;line-height:1.45'>Beaux,<br><br><b>we haven't finished making memories yet.</b><br><br><span style='font-size:2.2em;color:#efd16f'>♛</span><br><small style='font-family:Arial;letter-spacing:.18em'>100 / ∞</small></div>";
+}
 document.getElementById("next").addEventListener("click",()=>{if(n>=98){finale();return}n++;show()});
 document.getElementById("test").addEventListener("click",finale);
 show();
