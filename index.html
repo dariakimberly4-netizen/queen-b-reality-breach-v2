@@ -20,7 +20,7 @@ body.crack:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2
 @media(max-height:700px){.frame{height:48vh;min-height:280px}.crown{font-size:36px}h1{font-size:38px}}
 </style></head>
 <body>
-<main><div class="crown">♛</div><h1>QUEEN B</h1><div class="sub">REALITY BREACH · THE PHOTO COMES ALIVE</div>
+<main><div class="crown">♛</div><h1>QUEEN B</h1><div class="sub">REALITY BREACH · 100 MEMORIES</div>
 <div class="frame"><img id="photo" alt="Queen B memory"></div><div id="status">MEMORY 001 / 100</div></main>
 <div class="controls"><button id="next" type="button">NEXT MEMORY</button><button id="test" type="button">TEST MEMORY 100</button></div>
 <div id="reality"><div id="sys"></div></div>
@@ -55,7 +55,7 @@ async function ending(){
  sys.className="";sys.style.textDecoration="none";
  sys.innerHTML="<div style='font-family:Georgia,serif;line-height:1.45'>Beaux,<br><br><b>we haven't finished making memories yet.</b><br><br><span style='font-size:2.2em;color:#efd16f'>♛</span><br><small style='font-family:Arial;letter-spacing:.18em'>100 / ∞</small></div>";
 }
-document.getElementById("next").addEventListener("click",()=>{if(n>=99){finale();return}n++;show()});
+document.getElementById("next").addEventListener("click",()=>{if(n>=98){finale();return}n++;show()});
 document.getElementById("test").addEventListener("click",finale);
 show();
 </script></body></html>
